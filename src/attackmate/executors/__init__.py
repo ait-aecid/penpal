@@ -9,6 +9,7 @@ from .sliver.sliversessionexecutor import SliverSessionExecutor
 from .father.fatherexecutor import FatherExecutor
 from .http.webservexecutor import WebServExecutor
 from .http.httpclientexecutor import HttpClientExecutor
+from .vnc.vncexecutor import VncExecutor
 from .common.setvarexecutor import SetVarExecutor
 from .common.sleepexecutor import SleepExecutor
 from .common.tempfileexecutor import TempfileExecutor
@@ -36,5 +37,6 @@ __all__ = [
     'DebugExecutor',
     'IncludeExecutor',
     'RegExExecutor',
+    'VncExecutor',
     'LoopExecutor',
 ]

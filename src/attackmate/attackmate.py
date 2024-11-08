@@ -85,6 +85,7 @@ class AttackMate:
             'include': executors.IncludeExecutor(**init_args, runfunc=self.run_commands),
             'loop': executors.LoopExecutor(**init_args, runfunc=self.run_commands),
             'regex': executors.RegExExecutor(**init_args),
+            'vnc': executors.VncExecutor(**init_args),
         }
 
     def run_commands(self, commands: Commands):

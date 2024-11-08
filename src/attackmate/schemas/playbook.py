@@ -6,61 +6,63 @@ from .shell import ShellCommand
 from .setvar import SetVarCommand
 from .include import IncludeCommand
 from .loop import LoopCommand
-from .metasploit import (MsfModuleCommand,
-                         MsfSessionCommand,
-                         MsfPayloadCommand)
+from .metasploit import MsfModuleCommand, MsfSessionCommand, MsfPayloadCommand
 
-from .sliver import (SliverSessionCDCommand,
-                     SliverSessionLSCommand,
-                     SliverSessionNETSTATCommand,
-                     SliverSessionEXECCommand,
-                     SliverSessionMKDIRCommand,
-                     SliverSessionSimpleCommand,
-                     SliverSessionDOWNLOADCommand,
-                     SliverSessionUPLOADCommand,
-                     SliverSessionPROCDUMPCommand,
-                     SliverSessionRMCommand,
-                     SliverSessionTERMINATECommand,
-                     SliverHttpsListenerCommand,
-                     SliverGenerateCommand)
+from .sliver import (
+    SliverSessionCDCommand,
+    SliverSessionLSCommand,
+    SliverSessionNETSTATCommand,
+    SliverSessionEXECCommand,
+    SliverSessionMKDIRCommand,
+    SliverSessionSimpleCommand,
+    SliverSessionDOWNLOADCommand,
+    SliverSessionUPLOADCommand,
+    SliverSessionPROCDUMPCommand,
+    SliverSessionRMCommand,
+    SliverSessionTERMINATECommand,
+    SliverHttpsListenerCommand,
+    SliverGenerateCommand,
+)
 from .ssh import SSHCommand, SFTPCommand
 from .http import WebServCommand, HttpClientCommand
 from .father import FatherCommand
 from .tempfile import TempfileCommand
 from .debug import DebugCommand
 from .regex import RegExCommand
+from .vnc import VncCommand
 
 Command = Union[
-                ShellCommand,
-                MsfModuleCommand,
-                MsfSessionCommand,
-                MsfPayloadCommand,
-                SleepCommand,
-                SSHCommand,
-                FatherCommand,
-                SFTPCommand,
-                DebugCommand,
-                SetVarCommand,
-                RegExCommand,
-                TempfileCommand,
-                IncludeCommand,
-                LoopCommand,
-                WebServCommand,
-                HttpClientCommand,
-                SliverSessionCDCommand,
-                SliverSessionLSCommand,
-                SliverSessionNETSTATCommand,
-                SliverSessionEXECCommand,
-                SliverSessionMKDIRCommand,
-                SliverSessionSimpleCommand,
-                SliverSessionDOWNLOADCommand,
-                SliverSessionUPLOADCommand,
-                SliverSessionPROCDUMPCommand,
-                SliverSessionRMCommand,
-                SliverSessionTERMINATECommand,
-                SliverHttpsListenerCommand,
-                SliverGenerateCommand
-               ]
+    ShellCommand,
+    MsfModuleCommand,
+    MsfSessionCommand,
+    MsfPayloadCommand,
+    SleepCommand,
+    SSHCommand,
+    FatherCommand,
+    SFTPCommand,
+    DebugCommand,
+    SetVarCommand,
+    RegExCommand,
+    TempfileCommand,
+    IncludeCommand,
+    LoopCommand,
+    WebServCommand,
+    HttpClientCommand,
+    SliverSessionCDCommand,
+    SliverSessionLSCommand,
+    SliverSessionNETSTATCommand,
+    SliverSessionEXECCommand,
+    SliverSessionMKDIRCommand,
+    SliverSessionSimpleCommand,
+    SliverSessionDOWNLOADCommand,
+    SliverSessionUPLOADCommand,
+    SliverSessionPROCDUMPCommand,
+    SliverSessionRMCommand,
+    SliverSessionTERMINATECommand,
+    SliverHttpsListenerCommand,
+    SliverGenerateCommand,
+    VncCommand,
+]
 
 
 Commands = List[Command]
