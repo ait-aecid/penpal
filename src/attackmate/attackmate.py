@@ -10,9 +10,10 @@ configuration.
 
 from typing import Dict
 import logging
+from attackmate.result import Result
 import attackmate.executors as executors
 from attackmate.schemas.config import Config
-from attackmate.schemas.playbook import Playbook, Commands
+from attackmate.schemas.playbook import Playbook, Commands, Command
 from .variablestore import VariableStore
 from .processmanager import ProcessManager
 from attackmate.executors.baseexecutor import BaseExecutor
@@ -75,6 +76,13 @@ class AttackMate:
             executor = self._get_executor(command_type)
             if executor:
                 executor.run(command)
+
+    def run_command(self, command: Command) -> Result:
+        command_type = 'ssh' if command.type == 'sftp' else command.type
+        executor = self._get_executor(command_type)
+        if executor:
+            result = executor.run(command)
+        return result if result else Result(None, None)
 
     def main(self):
         """The main function

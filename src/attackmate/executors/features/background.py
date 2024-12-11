@@ -28,23 +28,20 @@ class Background:
     def _create_queue(self) -> Optional[Queue]:
         return None
 
-    def exec_background(self, command: BaseCommand):
-        if hasattr(command, 'type'):
-            self.logger.info(f'Run in background: {command.type}({command.cmd})')
-        else:
-            self.logger.info(f'Run in background: {command.cmd}')
+    def exec_background(self, command: BaseCommand) -> Result:
+        self.logger.info(f'Run in background: {getattr(command, "type", "")}({command.cmd})')
 
         queue = self._create_queue()
 
         if queue:
-            p = self.pm.ctx.Process(target=self._exec_bg_cmd,
-                                    args=(command, queue))
+            p = self.pm.ctx.Process(target=self._exec_bg_cmd, args=(command, queue))
         else:
-            p = self.pm.ctx.Process(target=self._exec_bg_cmd,
-                                    args=(command,))
+            p = self.pm.ctx.Process(target=self._exec_bg_cmd, args=(command,))
         p.start()
         p.join(5)
         self.pm.add_process(p, command.kill_on_exit)
+        # background commands always return None Result
+        return Result(None, None)
 
     def _exec_bg_cmd(self, command: Any, queue: Optional[Queue] = None):
         self.is_child_proc = True
