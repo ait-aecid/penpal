@@ -45,12 +45,27 @@ class LoopExecutor(BaseExecutor):
             return True
         return False
 
+    def substitute_variables_in_command(self, command_obj, placeholders: dict):
+        """
+        Replaces all occurrences of placeholders in *any* string attribute
+        of the command_obj with the values from placeholders.
+        E.g. if placeholders = {'LOOP_ITEM': 'https://example.com'},
+             and command_obj.url = '$LOOP_ITEM', then it becomes 'https://example.com'.
+        """
+        for attr_name, attr_val in vars(command_obj).items():
+            if isinstance(attr_val, str):
+                new_val = Template(attr_val).safe_substitute(placeholders)
+                setattr(command_obj, attr_name, new_val)
+
     def loop_range(self, command: LoopCommand, start: int, end: int) -> None:
         for x in range(start, end):
             for cmd in command.commands:
                 template_cmd: Command = copy.deepcopy(cmd)
-                tpl = Template(template_cmd.cmd)
-                template_cmd.cmd = tpl.substitute(LOOP_INDEX=x, **self.varstore.variables)
+                placeholders = {
+                    'LOOP_INDEX': x,
+                    **self.varstore.variables,
+                }
+                self.substitute_variables_in_command(template_cmd, placeholders)
                 if self.break_condition_met(command):
                     return
                 self.runfunc([template_cmd])
@@ -59,8 +74,11 @@ class LoopExecutor(BaseExecutor):
         for x in iterable:
             for cmd in command.commands:
                 template_cmd: Command = copy.deepcopy(cmd)
-                tpl = Template(template_cmd.cmd)
-                template_cmd.cmd = tpl.substitute(LOOP_ITEM=x, **self.varstore.variables)
+                placeholders = {
+                    'LOOP_ITEM': x,
+                    **self.varstore.variables,
+                }
+                self.substitute_variables_in_command(template_cmd, placeholders)
                 if self.break_condition_met(command):
                     return
                 self.runfunc([template_cmd])
